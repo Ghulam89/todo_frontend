@@ -20,7 +20,8 @@ const Home = () => {
       .catch((err) => console.log(err));
   }, [updateUI]);
 
-  const saveToDo = () => {
+  const saveToDo = (e) => {
+    e.preventDefault();
     if (id) {
       axios
         .post(`${Base_url}/todo/create`, { name: input })
@@ -42,21 +43,22 @@ const Home = () => {
         <div className="  bg-white rounded-md p-4  w-[480px] shadow-lg">
           <h1 className=" text-black text-2xl font-bold">ToDo App</h1>
 
-          <div className="flex justify-center gap-2.5 mt-5">
+          <form onSubmit={saveToDo} className="flex justify-center gap-2.5 mt-5">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               type="text"
               placeholder="Add a ToDo..."
               className="p-2.5  w-full bg-gray-600 text-white outline-none border-none placeholder-white"
+              required
             />
             <button
-              onClick={saveToDo}
+             
               className="p-2.5 w-32  bg-orange  rounded-sm text-white hover:bg-gray-400"
             >
               Add  Task
             </button>
-          </div>
+          </form>
 
           <div className="mt-5 flex flex-col gap-5">
             {toDos.map((el) => (
